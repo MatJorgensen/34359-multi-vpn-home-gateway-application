@@ -3,10 +3,7 @@ Source code for the final project (exam project) for course 34359 Software Defin
 
 
 # Links & resources
-https://wiki.onosproject.org/display/ONOS/Template+Application+Tutorial
-
-https://wiki.onosproject.org/display/ONOS/Learning+Switch+Tutorial 
-
-https://wiki.onosproject.org/display/ONOS/Web+UI+Tutorial+-+Creating+a+Custom+View
-
-
+1. https://wiki.onosproject.org/display/ONOS/Basic+ONOS+Tutorial
+2. https://wiki.onosproject.org/display/ONOS/Template+Application+Tutorial
+3. https://wiki.onosproject.org/display/ONOS/Web+UI+Tutorial+-+Creating+a+Custom+View
+4. https://wiki.onosproject.org/display/ONOS/Learning+Switch+Tutorial 
