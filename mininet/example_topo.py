@@ -30,6 +30,17 @@ class ExampleTopo(Topo):
 	self.addLink(switches[1], switches[2], cls=TCLink, **s2s3)
 	self.addLink(switches[1], switches[3], cls=TCLink, **s2s4)
 
+class ONOSController(RemoteController):
+    "ONOS Controller"
+    def build(self):
+	self.name = 'ONOSController',
+	self.ip = '127.0.0.1',
+	self.protocol='tcp',
+	self.port = 6633
+
+topos = {'exampletopo': ExampleTopo}
+controllers = {'onos': ONOSController}
+"""
 def simpleTest():
     "Create and test the example network"
     topo = ExampleTopo()
@@ -46,7 +57,8 @@ def simpleTest():
     print "Testing network connectivity"
     CLI(net)
     net.stop()
-
+"""
 if __name__ == '__main__':
-    setLogLevel('info')
-    simpleTest()
+    net.start()
+    CLI(net)
+    net.stop()
