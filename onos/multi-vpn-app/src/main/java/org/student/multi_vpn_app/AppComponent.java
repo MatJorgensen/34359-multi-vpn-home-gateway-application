@@ -94,24 +94,29 @@ public class AppComponent {
             }
 
             log.info("Processing packet request");
-            // log.info("VlanID: " + ethPkt.getVlanID());
+            log.info("VlanID of incoming packet: " + ethPkt.getVlanID());
 
             DeviceId deviceId = pkt.receivedFrom().deviceId();
             MacAddress dstMac = ethPkt.getDestinationMAC();
             PortNumber outPort = PortNumber.FLOOD;
             // VlanId vlanId = VlanId.vlanId(VlanId.UNTAGGED);
+            short assignedVlan = 0;
 
             if (deviceId.equals(DeviceId.deviceId("of:0000000000000001"))) {
                 log.info("s1");
                 if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
                     outPort = PortNumber.portNumber(1);
+                    assignedVlan = (short) 191;
                     //vlanId = VlanId.vlanId(vlanId.UNTAGGED);
                     log.info("Setting output port to: " + outPort);
+                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     //log.info("Tagging packet with vlan tag " + vlanId);
                 } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
                     outPort = PortNumber.portNumber(2);
-                    // vlanId = VlanId.vlanId((short) 200);
+                    assignedVlan = (short) 192;
+                    // vlanId = VlanId.vlanId((short191) 200);
                     log.info("Setting output port to: " + outPort);
+                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     // log.info("Tagging packet with vlan tag " + vlanId);
                 } else {
                     log.info("Unknown destination host, ignoring");
@@ -121,12 +126,16 @@ public class AppComponent {
                 log.info("s2");
                 if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
                     outPort = PortNumber.portNumber(2);
+                    assignedVlan = (short) 191;
                     //vlanId = VlanId.vlanId((short) 200);
                     log.info("Setting output port to: " + outPort);
+                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     //log.info("Tagging packet with vlan tag " + vlanId);
                 } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
                     outPort = PortNumber.portNumber(1);
+                    assignedVlan = (short) 192;
                     log.info("Setting output port to: " + outPort);
+                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     // log.info("Tagging packet with vlan tag " + vlanId);
                 } else {
                     log.info("Unknown destination host, ignoring");
@@ -138,8 +147,21 @@ public class AppComponent {
                     .matchEthType(Ethernet.TYPE_IPV4)
                     .matchEthDst(dstMac).build();
 
-            TrafficTreatment treatment = DefaultTrafficTreatment.builder()
-                    .setOutput(outPort).build();
+            TrafficTreatment treatment;
+
+            /* bruger det følgendehvis man kun applier tag i en retning f.eks. hvis dst = 1*/
+            if (assignedVlan == (short) 192){
+                treatment = DefaultTrafficTreatment.builder()
+                        .setOutput(outPort)
+                        .pushVlan()
+                        .setVlanId(VlanId.vlanId(assignedVlan))
+                        .build();
+
+            } else {
+                treatment = DefaultTrafficTreatment.builder()
+                        .setOutput(outPort)
+                        .build();
+            }
 
             ForwardingObjective forwardingObjective = DefaultForwardingObjective.builder()
                     .withSelector(packetSelector)
