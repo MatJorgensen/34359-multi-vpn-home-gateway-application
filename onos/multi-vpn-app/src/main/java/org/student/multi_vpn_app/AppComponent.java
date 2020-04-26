@@ -94,30 +94,37 @@ public class AppComponent {
             }
 
             log.info("Processing packet request");
-            log.info("VlanID of incoming packet: " + ethPkt.getVlanID());
+            // log.info("VlanID: " + ethPkt.getVlanID());
 
             DeviceId deviceId = pkt.receivedFrom().deviceId();
             MacAddress dstMac = ethPkt.getDestinationMAC();
             PortNumber outPort = PortNumber.FLOOD;
-            // VlanId vlanId = VlanId.vlanId(VlanId.UNTAGGED);
-            short assignedVlan = 0;
+            VlanId vlanId = VlanId.vlanId(VlanId.UNTAGGED);
+
+            TrafficSelector.Builder packetSelector1 = DefaultTrafficSelector.builder();
+            packetSelector1.matchEthType(Ethernet.TYPE_IPV4);
+
+            TrafficSelector.Builder packetSelector2 = DefaultTrafficSelector.builder();
+            packetSelector2.matchEthType(Ethernet.TYPE_IPV4);
+
+            TrafficTreatment.Builder packetTreatment1 = DefaultTrafficTreatment.builder();
+            TrafficTreatment.Builder packetTreatment2 = DefaultTrafficTreatment.builder();
 
             if (deviceId.equals(DeviceId.deviceId("of:0000000000000001"))) {
                 log.info("s1");
                 if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
                     outPort = PortNumber.portNumber(1);
-                    assignedVlan = (short) 191;
                     //vlanId = VlanId.vlanId(vlanId.UNTAGGED);
                     log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     //log.info("Tagging packet with vlan tag " + vlanId);
                 } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
                     outPort = PortNumber.portNumber(2);
-                    assignedVlan = (short) 192;
-                    // vlanId = VlanId.vlanId((short191) 200);
+                    vlanId = VlanId.vlanId((short) 200);
                     log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag: " + assignedVlan);
-                    // log.info("Tagging packet with vlan tag " + vlanId);
+                    log.info("Tagging packet with vlan tag " + vlanId);
+                    packetSelector1.matchEthDst(dstMac);
+                    packetTreatment1.pushVlan().setVlanId(vlanId).setOutput(outPort);
+                    forwardRequest(context, packetSelector1, packetTreatment1, deviceId, outPort);
                 } else {
                     log.info("Unknown destination host, ignoring");
                     return;
@@ -126,46 +133,59 @@ public class AppComponent {
                 log.info("s2");
                 if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
                     outPort = PortNumber.portNumber(2);
-                    assignedVlan = (short) 191;
                     //vlanId = VlanId.vlanId((short) 200);
                     log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     //log.info("Tagging packet with vlan tag " + vlanId);
                 } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
                     outPort = PortNumber.portNumber(1);
-                    assignedVlan = (short) 192;
+                    // vlanId = VlanId.vlanId(VlanId.UNTAGGED);
                     log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag: " + assignedVlan);
                     // log.info("Tagging packet with vlan tag " + vlanId);
+                    packetSelector2.matchVlanId(VlanId.vlanId((short) 200));
+                    packetSelector2.matchEthDst(dstMac);
+                    packetTreatment2.popVlan();
+                    packetTreatment2.setOutput(outPort);
+                    forwardRequest(context, packetSelector2, packetTreatment2, deviceId, outPort);
                 } else {
                     log.info("Unknown destination host, ignoring");
                     return;
                 }
             }
+            //packetSelector1.matchEthDst(dstMac);
+
+
+            //packetTreatment.setOutput(outPort);
+
             //Generate the traffic selector based on the packet that arrived.
-            TrafficSelector packetSelector = DefaultTrafficSelector.builder()
-                    .matchEthType(Ethernet.TYPE_IPV4)
-                    .matchEthDst(dstMac).build();
+            //TrafficSelector packetSelector = DefaultTrafficSelector.builder()
+            //        .matchEthType(Ethernet.TYPE_IPV4)
+            //        .matchVlanId(vlanId)
+            //        .matchEthDst(dstMac).build();
 
-            TrafficTreatment treatment;
+            //TrafficTreatment treatment = DefaultTrafficTreatment.builder()
+            //        .pushVlan()
+            //        .setVlanId(vlanId)
+            //        .setOutput(outPort).build();
 
-            /* bruger det følgendehvis man kun applier tag i en retning f.eks. hvis dst = 1*/
-            if (assignedVlan == (short) 192){
-                treatment = DefaultTrafficTreatment.builder()
-                        .setOutput(outPort)
-                        .pushVlan()
-                        .setVlanId(VlanId.vlanId(assignedVlan))
-                        .build();
+            //ForwardingObjective forwardingObjective = DefaultForwardingObjective.builder()
+            //        .withSelector(packetSelector.build())
+            //        .withTreatment(packetTreatment.build())
+            //        .withPriority(5000)
+            //        .withFlag(ForwardingObjective.Flag.VERSATILE)
+            //        .fromApp(appId)
+            //        .makeTemporary(5)
+            //        .add();
 
-            } else {
-                treatment = DefaultTrafficTreatment.builder()
-                        .setOutput(outPort)
-                        .build();
-            }
+            //if (outPort != PortNumber.FLOOD) flowObjectiveService.forward(deviceId, forwardingObjective);
+            //context.treatmentBuilder().addTreatment(packetTreatment.build());
+            //context.send();
 
+        }
+
+        public void forwardRequest(PacketContext context, TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, DeviceId deviceId, PortNumber outPort) {
             ForwardingObjective forwardingObjective = DefaultForwardingObjective.builder()
-                    .withSelector(packetSelector)
-                    .withTreatment(treatment)
+                    .withSelector(selector.build())
+                    .withTreatment(treatment.build())
                     .withPriority(5000)
                     .withFlag(ForwardingObjective.Flag.VERSATILE)
                     .fromApp(appId)
@@ -173,8 +193,9 @@ public class AppComponent {
                     .add();
 
             if (outPort != PortNumber.FLOOD) flowObjectiveService.forward(deviceId, forwardingObjective);
-            context.treatmentBuilder().addTreatment(treatment);
-            context.send();
+            context.treatmentBuilder().addTreatment(treatment.build());
+	    context.send(); // TJEK DENNE...!
         }
     }
 }
+
