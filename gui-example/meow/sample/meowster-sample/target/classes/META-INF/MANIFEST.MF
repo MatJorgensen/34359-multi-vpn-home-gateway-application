@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1588582699340
+Build-Jdk: 1.8.0_151
+Built-By: student
+Bundle-Description: Meowster sample app
+Bundle-ManifestVersion: 2
+Bundle-Name: meowster-sample
+Bundle-SymbolicName: org.meowster.app.sample.meowster-sample
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: org.meowster.app.sample;uses:="org.onosproject.core,org.
+ onosproject.net.flow,org.onosproject.net.flowobjective,org.onosproject.
+ net.packet,org.onosproject.ui";version="1.0.0"
+Import-Package: com.fasterxml.jackson.databind.node;version="[2.4,3)",co
+ m.google.common.collect;version="[22.0,23)",org.onlab.packet;version="[
+ 1.13,2)",org.onosproject.core;version="[1.13,2)",org.onosproject.net;ve
+ rsion="[1.13,2)",org.onosproject.net.flow;version="[1.13,2)",org.onospr
+ oject.net.flowobjective;version="[1.13,2)",org.onosproject.net.packet;v
+ ersion="[1.13,2)",org.onosproject.ui;version="[1.13,2)",org.slf4j;versi
+ on="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Service-Component: OSGI-INF/org.meowster.app.sample.AppUiComponent.xml,O
+ SGI-INF/org.meowster.app.sample.AppComponent.xml
+Tool: Bnd-3.0.0.201509101326
