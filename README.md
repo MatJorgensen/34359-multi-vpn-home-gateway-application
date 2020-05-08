@@ -17,3 +17,8 @@ Source code for the final project (exam project) for course 34359 Software Defin
 5. Install the application by executing`onos-app localhost install target/multi-vpn-app-1.0-SNAPSHOT.oar`
 6. Deactivate automatic forwarding of packets by executing `app deactivate fwd`
 7. Activate the multip-vpn-app application by executing `app activate multi-vpn-app`
+
+
+# HOW TO RUN CUSTOM MN TOPO FROM VLAN PUSH BRANCH
+
+sudo mn --custom example_topo.py --topo myTopo --controller=remote
