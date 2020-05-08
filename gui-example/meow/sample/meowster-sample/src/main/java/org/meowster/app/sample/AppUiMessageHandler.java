@@ -36,9 +36,9 @@ public class AppUiMessageHandler extends UiMessageHandler {
     private static final String Customer1VLAN = "Customer1VLAN";
     private static final String Customer2VLAN = "Customer2VLAN";
     private static final String Customer3VLAN = "Customer3VLAN";
-    private static final int C1VLAN = 100;
+    private static final int C1VLAN = 200;
     private static final int C2VLAN = 200;
-    private static final int C3VLAN = 300;
+    private static final int C3VLAN = 0;
     private static final int NoVlan = 0;
     private static final String MESSAGE = "message";
     private static final String MSG_FORMAT = "VLAN TAG VALUE IS: %d ";
