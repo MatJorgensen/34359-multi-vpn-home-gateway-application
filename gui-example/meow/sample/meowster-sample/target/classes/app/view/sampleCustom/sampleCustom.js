@@ -9,6 +9,8 @@
     var dataReq = 'sampleCustomDataRequest',
         dataResp = 'sampleCustomDataResponse';
 
+    var dataReqCustom = 'macAndVlan';
+
     function addKeyBindings() {
         var map = {
             space: [getData, 'Fetch data from server'],
@@ -20,12 +22,41 @@
 
         ks.keyBindings(map);
     }
-
     function getData() {
-        wss.sendEvent(dataReq);
+        console.log("inside getData function");
+        var macHost = document.getElementById('macHost').value;
+        var vlanTagId = document.getElementById('vlanTagId').value;
+        console.log("macHost: " + macHost);
+        console.log("vlan ID: " + vlanTagId);
+        var hostData = {"host": macHost, "vlanId": vlanTagId};
+        var rowId = macHost + vlanTagId;
+        if(document.getElementById(rowId) != null) {
+            //element with id exists
+            myDeleteFunction(rowId);
+        } else {
+            myCreateFunction(macHost, vlanTagId)
+        }
+        wss.sendEvent(dataReqCustom, hostData);
+    }
+
+    function myCreateFunction(macHost, vlanTagId) {
+        var table = document.getElementById("myTable");
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = macHost;
+        cell2.innerHTML = vlanTagId;
+        row.id = (macHost+vlanTagId);
+    }
+
+    function myDeleteFunction(rowId) {
+        var row = document.getElementById(rowId);
+        row.remove();
     }
 
     function respDataCb(data) {
+        //myCreateFunction()
+        console.log(data);
         $scope.data = data;
         $scope.$apply();
     }

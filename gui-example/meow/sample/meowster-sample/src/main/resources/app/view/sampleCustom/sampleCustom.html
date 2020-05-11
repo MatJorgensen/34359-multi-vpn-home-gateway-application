@@ -1,32 +1,20 @@
 <!-- partial HTML -->
 <div id="ov-sample-custom">
+    <form>
+        Mac Address of Host: <input type="text" name="macHost" id="macHost">
+        Vlan ID: <input type="text" name="vlanTagId" id="vlanTagId">
+    </form>
     <div class="button-panel">
         <div class="my-button" ng-click="getData()">
-            Fetch Data
+            Toggle Vlan For Host
         </div>
     </div>
-
-    <div class="data-panel">
-        <table>
-            <tr>
-                <td> Customer1VLAN </td>
-                <td class="Customer1VLAN"> {{data.Customer1VLAN}} </td>
-            </tr>
-            <tr>
-                <td> Customer2VLAN </td>
-                <td class="Customer2VLAN"> {{data.Customer2VLAN}} </td>
-            </tr>
-            <tr>
-                <td> Customer3VLAN </td>
-                <td class="Customer3VLAN"> {{data.Customer3VLAN}} </td>
-            </tr>
-        </table>
-
-        <p>
-            A message from our sponsors:
-        </p>
-        <p>
-            <span class="quote"> {{data.message}} </span>
-        </p>
-    </div>
+    <table id="myTable">
+        <tr>
+            <td>HOST MAC:</td>
+            <td>VLAN ID:</td>
+        </tr>
+    </table>
 </div>
+
+
