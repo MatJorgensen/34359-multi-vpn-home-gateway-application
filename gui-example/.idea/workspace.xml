@@ -27,8 +27,8 @@
       <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="79" column="42" lean-forward="true" selection-start-line="76" selection-start-column="49" selection-end-line="79" selection-end-column="42" />
+            <state relative-caret-position="442">
+              <caret line="73" column="10" lean-forward="true" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
               <folding>
                 <element signature="e#0#3085#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -397,12 +397,12 @@
       <option name="presentableId" value="Default" />
       <updated>1589274467261</updated>
       <workItem from="1589274469374" duration="891000" />
-      <workItem from="1589275735551" duration="2910000" />
+      <workItem from="1589275735551" duration="2946000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3801000" />
+    <option name="totallyTimeSpent" value="3837000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="1926" height="900" extended-state="6" />
@@ -489,8 +489,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="79" column="42" lean-forward="true" selection-start-line="76" selection-start-column="49" selection-end-line="79" selection-end-column="42" />
+        <state relative-caret-position="442">
+          <caret line="73" column="10" lean-forward="true" selection-start-line="73" selection-start-column="10" selection-end-line="73" selection-end-column="10" />
           <folding>
             <element signature="e#0#3085#0" expanded="true" />
             <element signature="imports" expanded="true" />
