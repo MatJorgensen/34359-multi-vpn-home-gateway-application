@@ -10,10 +10,13 @@ package org.meowster.app.sample;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableSet;
+import org.onosproject.net.packet.PacketProcessor;
 import org.onosproject.ui.RequestHandler;
 import org.onosproject.ui.UiMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.onlab.packet.MacAddress;
+import org.onlab.packet.VlanId;
 
 import java.util.Collection;
 
@@ -69,16 +72,23 @@ public class AppUiMessageHandler extends UiMessageHandler {
         @Override
         public void process(ObjectNode payload) {
             log.info("payload: " + payload);
-            String macHost2 = payload.get("host").toString();
-            String vlanTagId2 = payload.get("vlanId").toString();
-            AppC.toggleVlan(vlanTagId2, macHost2);
+
+            String tmpMac = payload.get("host").textValue();
+            MacAddress macHost2 = MacAddress.valueOf(tmpMac);
+
+            Short tmpVlan = payload.get("vlanId").shortValue();
+            VlanId vlanTagId2 = VlanId.vlanId(tmpVlan);
+
             log.info("Host: " + macHost2 + "VlanId: " + vlanTagId2);
             ObjectNode result = objectNode();
             //log.info(payload.get("payload").toString());
-            result.put(MESSAGE, String.format(MSG_FORMAT, payload.get("vlanId").toString(), payload.get("host").toString()));
+            result.put(MESSAGE, String.format(MSG_FORMAT, vlanTagId2, macHost2));
             //check if tuple of MAC/VLAN exists if it does -> delete else -> create
             log.info("result: " + result);
             sendMessage(result);
+
+            AppC.toggleVlan(vlanTagId2, macHost2);
+
 
         }
     }

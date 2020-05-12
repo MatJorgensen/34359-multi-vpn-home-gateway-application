@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/gui-example.iml" filepath="$PROJECT_DIR$/.idea/gui-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meow/sample/meowster-sample/meowster-sample.iml" filepath="$PROJECT_DIR$/meow/sample/meowster-sample/meowster-sample.iml" />
     </modules>
   </component>
 </project>

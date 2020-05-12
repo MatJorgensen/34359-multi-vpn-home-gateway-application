@@ -104,19 +104,28 @@ public class AppComponent {
         log.info("Stopped");
     }
 
-    public void toggleVlan(String vlanID, String macHost) {
+    public void toggleVlan(VlanId vlanIDfromGui, MacAddress macHostFromGui) {
         // test 00:00:00:00:00:01
-        log.info("mac host: " + macHost);
-        String localMac = macHost;
-        log.info("local " + macHost);
-        if (switchTable.get(MacAddress.valueOf(localMac)).contains(VlanId.vlanId(vlanID))){
+        log.info("mac host: " + macHostFromGui + "vlan: " + vlanIDfromGui);
+
+        log.info("Is switch table empty: " + switchTable.isEmpty());
+
+        //log.info(switchTable.elements().nextElement().toString());
+
+        /*for (ConcurrentHashMap device : switchTable.elements().){
+            log.info("device: " + device.toString());
+            device.get(macOfHost);
+        }*/
+
+        /*if (device.get(macOfHost).exists){
+
             log.info("found existing vlan for MAC, deleting");
-        } else{
+        } else {
             log.info("did not find vlan for mac, adding");
-        }
+        }*/
 
         log.info("toggleVlan function");
-        log.info("vlan ID : " + vlanID + " mac host: " + macHost);
+        //log.info("vlan ID : " + vlanID + " mac host: " + macHost);
     }
 
     private class ReactivePacketProcessor implements PacketProcessor {
@@ -143,6 +152,7 @@ public class AppComponent {
                 log.info("Adding new switch: " + deviceId.toString());
                 ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>> hostTable = new ConcurrentHashMap<>();
                 switchTable.put(deviceId, hostTable);
+                log.info("Is switch table empty: " + switchTable.isEmpty());
             }
 
             // Now lets check if the source host is a known host. If it is not add it to the switchTable.
