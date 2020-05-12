@@ -26,28 +26,46 @@ import org.onosproject.net.DeviceId;
 import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.flow.*;
+import org.onosproject.net.Host;
 import org.onosproject.net.flowobjective.DefaultForwardingObjective;
 import org.onosproject.net.flowobjective.FlowObjectiveService;
 import org.onosproject.net.flowobjective.ForwardingObjective;
 import org.onosproject.net.packet.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.felix.scr.annotations.*;
+import org.onlab.packet.*;
+import org.onosproject.core.ApplicationId;
+import org.onosproject.core.CoreService;
+import org.onosproject.net.DeviceId;
+import org.onosproject.net.Host;
+import org.onosproject.net.PortNumber;
+import org.onosproject.net.flow.*;
+import org.onosproject.net.flowobjective.DefaultForwardingObjective;
+import org.onosproject.net.flowobjective.FlowObjectiveService;
+import org.onosproject.net.flowobjective.ForwardingObjective;
+import org.onosproject.net.packet.*;
+import org.onosproject.net.host.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Skeletal ONOS application component.
  */
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 @Component(immediate = true)
 public class AppComponent {
+
     private ApplicationId appId;
-    private static String H1_MAC = "00:00:00:00:00:01";
-    private static String H2_MAC = "00:00:00:00:00:02";
-    private static String S1_ID = "of:0000000000000001";
-    private static String S2_ID = "of:0000000000000002";
-    private static long H1_S1_PORT = 1;
-    private static long H2_S2_PORT = 1;
-    private static long S1_S2_PORT = 2;
-    private static long S2_S1_PORT = 2;
-    //static boolean VlanOn = false;
+    private Short VID = 200;
+
+    ConcurrentHashMap<DeviceId, ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>>> switchTable = new ConcurrentHashMap<>();
+    ConcurrentHashMap<DeviceId, String> switchType = new ConcurrentHashMap<>();
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected CoreService coreService;
@@ -60,6 +78,9 @@ public class AppComponent {
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
     protected PacketService packetService;
+
+    @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
+    protected HostService hostService;
 
     private ReactivePacketProcessor processor = new ReactivePacketProcessor();
 
@@ -83,136 +104,132 @@ public class AppComponent {
         log.info("Stopped");
     }
 
+    public void toggleVlan(String vlanID, String macHost) {
+        // test 00:00:00:00:00:01
+        log.info("mac host: " + macHost);
+        String localMac = macHost;
+        log.info("local " + macHost);
+        if (switchTable.get(MacAddress.valueOf(localMac)).contains(VlanId.vlanId(vlanID))){
+            log.info("found existing vlan for MAC, deleting");
+        } else{
+            log.info("did not find vlan for mac, adding");
+        }
+
+        log.info("toggleVlan function");
+        log.info("vlan ID : " + vlanID + " mac host: " + macHost);
+    }
+
     private class ReactivePacketProcessor implements PacketProcessor {
+
         @Override
         public void process(PacketContext context) {
             InboundPacket pkt = context.inPacket();
             Ethernet ethPkt = pkt.parsed();
-            //Discard if packet is null.
+
             if (ethPkt == null) {
                 log.info("Discarding null packet");
                 return;
             }
 
-            if (ethPkt.getEtherType() != Ethernet.TYPE_IPV4) {
+            if(ethPkt.getEtherType() != Ethernet.TYPE_IPV4) return;
+            log.info("Proccesing packet request.");
+
+            // First step is to check if the packet came from a newly discovered switch.
+            // Create a new entry if required.
+            DeviceId deviceId = pkt.receivedFrom().deviceId();
+            Set<Host> connectedHosts = hostService.getConnectedHosts(deviceId);
+
+            if (!switchTable.containsKey(deviceId)){
+                log.info("Adding new switch: " + deviceId.toString());
+                ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>> hostTable = new ConcurrentHashMap<>();
+                switchTable.put(deviceId, hostTable);
+            }
+
+            // Now lets check if the source host is a known host. If it is not add it to the switchTable.
+            ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>> hostTable = switchTable.get(deviceId);
+            Tuple<PortNumber, VlanId> tableData = new Tuple<>(PortNumber.FLOOD, VlanId.vlanId(VlanId.UNTAGGED));
+            MacAddress srcMac = ethPkt.getSourceMAC();
+            if (!hostTable.containsKey(srcMac)){
+                log.info("Adding new host: " + srcMac.toString() + " for switch " + deviceId.toString() + " on port " + pkt.receivedFrom().port());
+                tableData.setAt0(pkt.receivedFrom().port());
+
+                // Define switch type
+                for (Host host : connectedHosts) {
+                    if (srcMac.equals(host.mac()) || ethPkt.getDestinationMAC().equals(host.mac())) {
+                        log.info("Setting switch type to 'EDGE'");
+                        switchType.put(deviceId, "EDGE");
+                    }
+                }
+                tableData.setAt1(VlanId.vlanId(VID));
+                hostTable.put(srcMac, tableData);
+                switchTable.replace(deviceId, hostTable);
+            }
+
+            // To take care of loops, we must drop the packet if the port from which it came from does not match the port that the source host should be attached to.
+            if (!hostTable.get(srcMac).getValue0().equals(pkt.receivedFrom().port())){
+                log.info("Dropping packet to break loop");
                 return;
             }
 
-            log.info("Processing packet request");
-
-            DeviceId deviceId = pkt.receivedFrom().deviceId();
+            // Now lets check if we know the destination host. If we do asign the correct output port.
+            // By default set the port to FLOOD.
             MacAddress dstMac = ethPkt.getDestinationMAC();
-            short vlanCheck = ethPkt.getVlanID();
             PortNumber outPort = PortNumber.FLOOD;
-            VlanId vlanId = VlanId.vlanId(VlanId.UNTAGGED);
-
-            TrafficSelector.Builder packetSelector1 = DefaultTrafficSelector.builder();
-            packetSelector1.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector2 = DefaultTrafficSelector.builder();
-            packetSelector2.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector3 = DefaultTrafficSelector.builder();
-            packetSelector3.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector4 = DefaultTrafficSelector.builder();
-            packetSelector4.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficTreatment.Builder packetTreatment1 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment2 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment3 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment4 = DefaultTrafficTreatment.builder();
-
-            if (deviceId.equals(DeviceId.deviceId("of:0000000000000001"))) {
-                if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
-                    outPort = PortNumber.portNumber(1);
-                    log.info("Setting output port to: " + outPort);
-                    packetSelector1.matchVlanId(VlanId.vlanId((short) 201));
-                    packetSelector1.matchEthDst(dstMac);
-                    packetTreatment1.popVlan();
-                    log.info("Popping VLAN tag");
-                    packetTreatment1.setOutput(outPort);
-                    forwardRequest(context, packetSelector1, packetTreatment1, deviceId, outPort);
-                } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
-                    outPort = PortNumber.portNumber(2);
-                    vlanId = VlanId.vlanId((short) 202);
-                    log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector1.matchEthDst(dstMac);
-                    if (AppUiMessageHandler.getVlan()) {
-                        packetTreatment1.pushVlan().setVlanId(vlanId).setOutput(outPort);
-                        log.info("S1, destination = h2, PUSHING VLAN TAG");
-                    } else {
-                        packetTreatment1.setOutput(outPort);
-                        log.info("S1, destination = h2, NOT PUSHING VLAN TAG");
-                    }
-                    forwardRequest(context, packetSelector1, packetTreatment1, deviceId, outPort);
-                } else {
-                    log.info("Unknown destination host, ignoring");
-                    return;
-                }
-            } else if (deviceId.equals(DeviceId.deviceId("of:0000000000000002"))) {
-                log.info("s2");
-                if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
-                    outPort = PortNumber.portNumber(2);
-                    vlanId = VlanId.vlanId((short) 201);
-                    log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector2.matchEthDst(dstMac);
-                    if (AppUiMessageHandler.getVlan()) {
-                        packetTreatment2.pushVlan().setVlanId(vlanId).setOutput(outPort);
-                    } else {
-                        packetTreatment2.setOutput(outPort);
-                    }
-                    forwardRequest(context, packetSelector2, packetTreatment2, deviceId, outPort);
-                } else if (vlanCheck == (short) 202) {
-                    outPort = PortNumber.portNumber(3);
-                    log.info("Setting output port to: " + outPort);
-                    packetSelector2.matchVlanId(VlanId.vlanId((short) 202));
-                    packetSelector2.matchEthDst(dstMac);
-                    packetTreatment2.popVlan();
-                    log.info("popping vlan tag");
-                    packetTreatment2.setOutput(outPort);
-                    forwardRequest(context, packetSelector2, packetTreatment2, deviceId, outPort);
-                } else {
-                    log.info("Unknown destination host, ignoring");
-                    return;
-                }
-            } else if (deviceId.equals(DeviceId.deviceId("of:0000000000000003"))) {
-                log.info("s3");
-                if (vlanCheck == (short) 201) {
-                    createRequest(packetSelector3, packetTreatment3, 1, 3, dstMac, deviceId, context, VlanId.vlanId(vlanCheck));
-                } else if (vlanCheck == (short) 202) {
-                    createRequest(packetSelector3, packetTreatment3, 2, 3, dstMac, deviceId, context, VlanId.vlanId(vlanCheck));
-                } else {
-                    log.info("Unknown destination host, ignoring");
-                    return;
-                }
-
-            } else if (deviceId.equals(DeviceId.deviceId("of:0000000000000004"))) {
-                log.info("s4");
-                if (vlanCheck == (short) 201) {
-                    createRequest(packetSelector4, packetTreatment4, 1, 4, dstMac, deviceId, context, VlanId.vlanId(vlanCheck));
-                } else if (vlanCheck == (short) 202) {
-                    createRequest(packetSelector4, packetTreatment4, 2, 4, dstMac, deviceId, context, VlanId.vlanId(vlanCheck));
-                } else {
-                    log.info("Unknown destination host, ignoring");
-                    return;
-                }
+            if (hostTable.containsKey(dstMac)){
+                tableData = hostTable.get(dstMac);
+                outPort = tableData.getValue0();
+                log.info("Setting output port to: " + outPort);
             }
+
+            // Generate the traffic selector based on the packet that arrived.
+            TrafficSelector.Builder selector = DefaultTrafficSelector.builder();
+            selector.matchEthType(Ethernet.TYPE_IPV4);
+
+            // ... and generate treatment for the selected traffic.
+            TrafficTreatment.Builder treatment = DefaultTrafficTreatment.builder();
+            if (switchType.containsKey(deviceId) && switchType.get(deviceId).equals("EDGE")) {
+                log.info("EDGE");
+                for (Host host : connectedHosts) {
+                    if (host.mac().equals(dstMac)) {
+                        popVlan(selector, treatment, srcMac, dstMac, outPort);
+                    } else if (host.mac().equals(srcMac)) {
+                        pushVlan(selector, treatment, ethPkt, srcMac, dstMac, outPort, VlanId.vlanId(VID));
+                    }
+                }
+            } else {
+                log.info("CORE");
+                fwdVlan(selector, treatment, srcMac, dstMac, outPort);
+            }
+
+            // Lastly, forward the request.
+            forwardRequest(context, selector, treatment, deviceId, outPort);
         }
 
-        public void createRequest(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, int portNumberOut, int switchNumber, MacAddress dstMac, DeviceId devId, PacketContext context, VlanId vlanId) {
-            PortNumber outPort = PortNumber.portNumber(portNumberOut);
-            log.info("switch " + switchNumber + "sending packet on port: " + outPort);
+        public void pushVlan(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, Ethernet ethPkt, MacAddress srcMac, MacAddress dstMac, PortNumber outPort, VlanId vlanId) {
+            selector.matchEthSrc(srcMac);
             selector.matchEthDst(dstMac);
-            selector.matchVlanId(vlanId);
+            ethPkt.setVlanID(vlanId.toShort());
+            treatment.pushVlan();
+            treatment.setVlanId(vlanId);
             treatment.setOutput(outPort);
-            forwardRequest(context, selector, treatment, devId, outPort);
         }
 
-        public void forwardRequest(PacketContext context, TrafficSelector.Builder
-                selector, TrafficTreatment.Builder treatment, DeviceId deviceId, PortNumber outPort) {
+        public void popVlan(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, MacAddress srcMac, MacAddress dstMac, PortNumber outPort) {
+            selector.matchEthSrc(srcMac);
+            selector.matchEthDst(dstMac);
+            selector.matchVlanId(VlanId.vlanId(VID));
+            treatment.popVlan();
+            treatment.setOutput(outPort);
+        }
+
+        public void fwdVlan(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, MacAddress srcMac, MacAddress dstMac, PortNumber outPort) {
+            selector.matchEthSrc(srcMac);
+            selector.matchEthDst(dstMac);
+            selector.matchVlanId(VlanId.vlanId(VID));
+            treatment.setOutput(outPort);
+        }
+
+        public void forwardRequest(PacketContext context, TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, DeviceId deviceId, PortNumber outPort) {
             ForwardingObjective forwardingObjective = DefaultForwardingObjective.builder()
                     .withSelector(selector.build())
                     .withTreatment(treatment.build())
@@ -224,8 +241,9 @@ public class AppComponent {
 
             if (outPort != PortNumber.FLOOD) flowObjectiveService.forward(deviceId, forwardingObjective);
             context.treatmentBuilder().addTreatment(treatment.build());
-            context.send(); // TJEK DENNE...!
+            context.send();
         }
     }
-    }
+}
+
 

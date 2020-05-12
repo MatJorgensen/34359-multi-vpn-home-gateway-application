@@ -1,12 +1,4 @@
-/*
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-package org.meowster.app.sample;
+package org.student.multi_vpn_app;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableSet;
@@ -28,7 +20,6 @@ import java.util.Collection;
  * Skeletal ONOS UI Custom-View message handler.
  */
 
-
 public class AppUiMessageHandler extends UiMessageHandler {
 
     private static final String SAMPLE_CUSTOM_DATA_REQ = "sampleCustomDataRequest";
@@ -47,8 +38,6 @@ public class AppUiMessageHandler extends UiMessageHandler {
     private static boolean VlanOn = false;
 
     public static boolean getVlan() { return VlanOn; }
-    AppComponent AppC = new AppComponent();
-
 
     @Override
     protected Collection<RequestHandler> createRequestHandlers() {
@@ -71,7 +60,6 @@ public class AppUiMessageHandler extends UiMessageHandler {
             log.info("payload: " + payload);
             String macHost2 = payload.get("host").toString();
             String vlanTagId2 = payload.get("vlanId").toString();
-            AppC.toggleVlan(vlanTagId2, macHost2);
             log.info("Host: " + macHost2 + "VlanId: " + vlanTagId2);
             ObjectNode result = objectNode();
             //log.info(payload.get("payload").toString());

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1589187896040
+Bnd-LastModified: 1589278572550
 Build-Jdk: 1.8.0_151
 Built-By: student
 Bundle-Description: Meowster sample app
@@ -10,14 +10,15 @@ Bundle-Version: 1.0.0.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
 Export-Package: org.meowster.app.sample;uses:="org.onosproject.core,org.
  onosproject.net.flow,org.onosproject.net.flowobjective,org.onosproject.
- net.packet,org.onosproject.ui";version="1.0.0"
+ net.host,org.onosproject.net.packet,org.onosproject.ui";version="1.0.0"
 Import-Package: com.fasterxml.jackson.databind;version="[2.4,3)",com.fas
  terxml.jackson.databind.node;version="[2.4,3)",com.google.common.collec
  t;version="[22.0,23)",org.onlab.packet;version="[1.13,2)",org.onosproje
  ct.core;version="[1.13,2)",org.onosproject.net;version="[1.13,2)",org.o
  nosproject.net.flow;version="[1.13,2)",org.onosproject.net.flowobjectiv
- e;version="[1.13,2)",org.onosproject.net.packet;version="[1.13,2)",org.
- onosproject.ui;version="[1.13,2)",org.slf4j;version="[1.7,2)"
+ e;version="[1.13,2)",org.onosproject.net.host;version="[1.13,2)",org.on
+ osproject.net.packet;version="[1.13,2)",org.onosproject.ui;version="[1.
+ 13,2)",org.slf4j;version="[1.7,2)"
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
 Service-Component: OSGI-INF/org.meowster.app.sample.AppUiComponent.xml,O
  SGI-INF/org.meowster.app.sample.AppComponent.xml

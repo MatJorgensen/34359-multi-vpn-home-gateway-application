@@ -6,4 +6,5 @@
     <reference name="flowObjectiveService" interface="org.onosproject.net.flowobjective.FlowObjectiveService" cardinality="1..1" policy="static" bind="bindFlowObjectiveService" unbind="unbindFlowObjectiveService"/>
     <reference name="flowRuleService" interface="org.onosproject.net.flow.FlowRuleService" cardinality="1..1" policy="static" bind="bindFlowRuleService" unbind="unbindFlowRuleService"/>
     <reference name="packetService" interface="org.onosproject.net.packet.PacketService" cardinality="1..1" policy="static" bind="bindPacketService" unbind="unbindPacketService"/>
+    <reference name="hostService" interface="org.onosproject.net.host.HostService" cardinality="1..1" policy="static" bind="bindHostService" unbind="unbindHostService"/>
 </scr:component>
