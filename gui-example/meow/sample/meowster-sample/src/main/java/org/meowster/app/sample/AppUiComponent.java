@@ -73,5 +73,4 @@ public class AppUiComponent {
         uiExtensionService.unregister(extension);
         log.info("Stopped");
     }
-
 }

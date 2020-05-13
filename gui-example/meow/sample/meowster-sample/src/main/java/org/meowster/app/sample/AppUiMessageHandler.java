@@ -87,22 +87,25 @@ public class AppUiMessageHandler extends UiMessageHandler {
             AppComponent.VID = vlanId;
             AppComponent.switchTable.forEach((k,v) -> {
                 v.forEach((k1,v1) -> {
-                    log.info("switch: " + k.toString() + " host: " + k1.toString() + " outport: " + v1.getValue0().toString() + " vlan ID: " + v1.getValue1().toString());
-                    if (k1.toString().equals(hostMac.toString())){ //if mac in hosttable is the one we are trying to set
-                        if (v1.getValue1().equals(vlanId)){ // if the macs attached VLAN is equal to the one we are trying to set
-                            v1.setAt1(VlanId.vlanId(VlanId.UNTAGGED));
-                        } else if (v1.getValue1().equals(VlanId.UNTAGGED)){ // if the VLAN TAG is EMPTY then we set it
-                            v1.setAt1(vlanId);
+                    log.info("Switch: " + k.toString() + " Host: " + k1.toString() + " Outport: " + v1.getValue0().toString() + " VLAN ID: " + v1.getValue1().toString());
+                    if (k1.toString().equals(hostMac.toString())){
+                        // Remove existing VLAN IDs
+                        if (v1.getValue1().contains(vlanId) && v1.getValue1().size() == 1) {
+                            v1.getValue1().remove(vlanId);
+                            v1.getValue1().add(VlanId.vlanId(VlanId.UNTAGGED));
+                        } else if (v1.getValue1().contains(vlanId) && v1.getValue1().size() > 1) {
+                            v1.getValue1().remove(vlanId);
+                        // Add new VLAN IDs
+                        } else if (!v1.getValue1().contains(vlanId) && v1.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))){
+                            v1.getValue1().remove(VlanId.vlanId(VlanId.UNTAGGED));
+                            v1.getValue1().add(vlanId);
                         } else {
-
-                            // we should create a new entry, so each host can have several VLANs
+                            v1.getValue1().add(vlanId);
                         }
                     }
-                    log.info("MODIFIED: switch: " + k.toString() + " host: " + k1.toString() + " outport: " + v1.getValue0().toString() + " vlan ID: " + v1.getValue1().toString());
-
+                    log.info("MODIFIED: Switch: " + k.toString() + " Host: " + k1.toString() + " Outport: " + v1.getValue0().toString() + " VLAN ID: " + v1.getValue1().toString());
                 });
             });
-            //log.info(AppComponent.switchTable.elements());
         }
     }
 }
