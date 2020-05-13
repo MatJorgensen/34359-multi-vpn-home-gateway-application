@@ -91,7 +91,7 @@ public class AppUiMessageHandler extends UiMessageHandler {
                     if (k1.toString().equals(hostMac.toString())){ //if mac in hosttable is the one we are trying to set
                         if (v1.getValue1().equals(vlanId)){ // if the macs attached VLAN is equal to the one we are trying to set
                             v1.setAt1(VlanId.vlanId(VlanId.UNTAGGED));
-                        } else if (v1.getValue1().equals(VlanId.UNTAGGED)){ // if the VLAN TAG is EMPTY then we set it
+                        } else if (v1.getValue1().equals(VlanId.vlanId(VlanId.UNTAGGED))){ // if the VLAN TAG is EMPTY then we set it
                             v1.setAt1(vlanId);
                         } else {
 
