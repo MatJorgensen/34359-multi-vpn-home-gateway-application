@@ -30,8 +30,8 @@
       <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="89" column="41" lean-forward="false" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="41" />
+            <state relative-caret-position="272">
+              <caret line="62" column="33" lean-forward="true" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
               <folding>
                 <element signature="e#0#4295#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -120,8 +120,8 @@
         <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/resources/app/view/sampleCustom/sampleCustom.html" />
         <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiComponent.java" />
         <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/resources/app/view/sampleCustom/sampleCustom.js" />
-        <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java" />
         <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java" />
+        <option value="$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java" />
       </list>
     </option>
   </component>
@@ -432,7 +432,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26087000" />
+    <option name="totallyTimeSpent" value="26232000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="2566" height="1260" extended-state="6" />
@@ -796,8 +796,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="89" column="41" lean-forward="false" selection-start-line="89" selection-start-column="41" selection-end-line="89" selection-end-column="41" />
+        <state relative-caret-position="272">
+          <caret line="62" column="33" lean-forward="true" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
           <folding>
             <element signature="e#0#4295#0" expanded="true" />
             <element signature="imports" expanded="true" />
