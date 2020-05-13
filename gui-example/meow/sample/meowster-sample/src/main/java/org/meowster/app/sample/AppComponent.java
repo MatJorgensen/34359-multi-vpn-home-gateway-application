@@ -62,9 +62,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AppComponent {
 
     private ApplicationId appId;
-    private Short VID = 200;
+    public static Short VID = 200;
 
-    ConcurrentHashMap<DeviceId, ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>>> switchTable = new ConcurrentHashMap<>();
+    public void setVID(Short newVID) { VID = newVID; }
+    public Short getVID() { return VID; }
+
+
+    public static ConcurrentHashMap<DeviceId, ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>>> switchTable = new ConcurrentHashMap<>();
     ConcurrentHashMap<DeviceId, String> switchType = new ConcurrentHashMap<>();
 
     @Reference(cardinality = ReferenceCardinality.MANDATORY_UNARY)
@@ -104,29 +108,31 @@ public class AppComponent {
         log.info("Stopped");
     }
 
-    public void toggleVlan(VlanId vlanIDfromGui, MacAddress macHostFromGui) {
+    /*public void toggleVlan(VlanId vlanIDfromGui, MacAddress macHostFromGui) {
         // test 00:00:00:00:00:01
         log.info("mac host: " + macHostFromGui + "vlan: " + vlanIDfromGui);
 
-        log.info("Is switch table empty: " + switchTable.isEmpty());
+        log.info("toggleVLAN: Is switch table empty: " + switchTable.isEmpty());
+
+        log.info("VID INSIDE TOGGLE: " + getVID());
 
         //log.info(switchTable.elements().nextElement().toString());
 
-        /*for (ConcurrentHashMap device : switchTable.elements().){
+        *//*for (ConcurrentHashMap device : switchTable.elements().){
             log.info("device: " + device.toString());
             device.get(macOfHost);
-        }*/
+        }*//*
 
-        /*if (device.get(macOfHost).exists){
+        *//*if (device.get(macOfHost).exists){
 
             log.info("found existing vlan for MAC, deleting");
         } else {
             log.info("did not find vlan for mac, adding");
-        }*/
+        }*//*
 
         log.info("toggleVlan function");
         //log.info("vlan ID : " + vlanID + " mac host: " + macHost);
-    }
+    }*/
 
     private class ReactivePacketProcessor implements PacketProcessor {
 
@@ -139,7 +145,8 @@ public class AppComponent {
                 log.info("Discarding null packet");
                 return;
             }
-
+            //setVID((short) 210);
+            log.info("changed VID: " + VID);
             if(ethPkt.getEtherType() != Ethernet.TYPE_IPV4) return;
             log.info("Proccesing packet request.");
 
@@ -152,7 +159,7 @@ public class AppComponent {
                 log.info("Adding new switch: " + deviceId.toString());
                 ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>> hostTable = new ConcurrentHashMap<>();
                 switchTable.put(deviceId, hostTable);
-                log.info("Is switch table empty: " + switchTable.isEmpty());
+                log.info("PacketProcessor: Is switch table empty: " + switchTable.isEmpty());
             }
 
             // Now lets check if the source host is a known host. If it is not add it to the switchTable.
@@ -210,7 +217,7 @@ public class AppComponent {
                 log.info("CORE");
                 fwdVlan(selector, treatment, srcMac, dstMac, outPort);
             }
-
+            log.info("LAST: Is switch table empty: " + switchTable.isEmpty());
             // Lastly, forward the request.
             forwardRequest(context, selector, treatment, deviceId, outPort);
         }

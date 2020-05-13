@@ -50,7 +50,7 @@ public class AppUiMessageHandler extends UiMessageHandler {
     private static boolean VlanOn = false;
 
     public static boolean getVlan() { return VlanOn; }
-    AppComponent AppC = new AppComponent();
+    //AppComponent AppC = new AppComponent();
 
 
     @Override
@@ -86,8 +86,10 @@ public class AppUiMessageHandler extends UiMessageHandler {
             //check if tuple of MAC/VLAN exists if it does -> delete else -> create
             log.info("result: " + result);
             sendMessage(result);
-
-            AppC.toggleVlan(vlanTagId2, macHost2);
+            //log.info("inside app ui message handler: " + AppC.getVID());
+            AppComponent.VID = (short) 209;
+            //AppComponent.switchTable.get  set et eller andet
+            //AppComponent.toggleVlan(vlanTagId2, macHost2);
 
 
         }

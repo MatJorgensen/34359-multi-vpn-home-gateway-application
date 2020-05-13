@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1589290823490
+Bnd-LastModified: 1589355704465
 Build-Jdk: 1.8.0_151
 Built-By: student
 Bundle-Description: Meowster sample app
