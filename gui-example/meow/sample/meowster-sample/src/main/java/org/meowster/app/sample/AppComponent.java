@@ -127,7 +127,7 @@ public class AppComponent {
                 return;
             }
             //setVID((short) 210);
-            log.info("changed VID: " + VID);
+            //log.info("changed VID: " + VID);
             if(ethPkt.getEtherType() != Ethernet.TYPE_IPV4) return;
             log.info("Proccesing packet request.");
 
