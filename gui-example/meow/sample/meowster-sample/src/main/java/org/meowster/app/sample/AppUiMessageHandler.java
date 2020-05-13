@@ -9,7 +9,9 @@
 package org.meowster.app.sample;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.ser.SerializerCache;
 import com.google.common.collect.ImmutableSet;
+import org.onosproject.net.DeviceId;
 import org.onosproject.ui.RequestHandler;
 import org.onosproject.ui.UiMessageHandler;
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.onlab.packet.MacAddress;
 import org.onlab.packet.VlanId;
 
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Copyright 2020-present Open Networking Foundation
@@ -82,6 +85,24 @@ public class AppUiMessageHandler extends UiMessageHandler {
 
             // Update value in backend
             AppComponent.VID = vlanId;
+            AppComponent.switchTable.forEach((k,v) -> {
+                v.forEach((k1,v1) -> {
+                    log.info("switch: " + k.toString() + " host: " + k1.toString() + " outport: " + v1.getValue0().toString() + " vlan ID: " + v1.getValue1().toString());
+                    if (k1.toString().equals(hostMac.toString())){ //if mac in hosttable is the one we are trying to set
+                        if (v1.getValue1().equals(vlanId)){ // if the macs attached VLAN is equal to the one we are trying to set
+                            v1.setAt1(VlanId.vlanId(VlanId.UNTAGGED));
+                        } else if (v1.getValue1().equals(VlanId.UNTAGGED)){ // if the VLAN TAG is EMPTY then we set it
+                            v1.setAt1(vlanId);
+                        } else {
+
+                            // we should create a new entry, so each host can have several VLANs
+                        }
+                    }
+                    log.info("MODIFIED: switch: " + k.toString() + " host: " + k1.toString() + " outport: " + v1.getValue0().toString() + " vlan ID: " + v1.getValue1().toString());
+
+                });
+            });
+            //log.info(AppComponent.switchTable.elements());
         }
     }
 }
