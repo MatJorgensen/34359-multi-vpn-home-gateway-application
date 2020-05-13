@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AppComponent.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AppComponent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="49" column="52" lean-forward="false" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+            <state relative-caret-position="-442">
+              <caret line="49" column="52" lean-forward="true" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
               <folding>
                 <element signature="e#0#10594#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -28,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="568">
-              <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+            <state relative-caret-position="765">
+              <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
               <folding>
                 <element signature="e#0#2965#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -44,8 +44,8 @@
       <file leaf-file-name="AppUiComponent.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-67">
-              <caret line="38" column="55" lean-forward="false" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
+            <state relative-caret-position="1">
+              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,94 +146,6 @@
             <path>
               <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
               <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="sampleCustom" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gui-example" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gui-example" type="462c0819:PsiDirectoryNode" />
-              <item name="meow" type="462c0819:PsiDirectoryNode" />
-              <item name="sample" type="462c0819:PsiDirectoryNode" />
-              <item name="meowster-sample" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="sampleCustom" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -400,12 +312,12 @@
       <workItem from="1589274469374" duration="891000" />
       <workItem from="1589275735551" duration="16066000" />
       <workItem from="1589364094836" duration="28000" />
-      <workItem from="1589364260156" duration="5649000" />
+      <workItem from="1589364260156" duration="6390000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22634000" />
+    <option name="totallyTimeSpent" value="23375000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="1926" height="904" extended-state="6" />
@@ -634,14 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-67">
-          <caret line="38" column="55" lean-forward="false" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/resources/sampleCustom/js.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -650,23 +554,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
+    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="49" column="52" lean-forward="false" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#10594#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="1">
+          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="75" column="0" lean-forward="true" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
           <folding>
             <element signature="e#0#2965#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-442">
+          <caret line="49" column="52" lean-forward="true" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#10594#0" expanded="true" />
             <element signature="imports" expanded="true" />
           </folding>
         </state>
