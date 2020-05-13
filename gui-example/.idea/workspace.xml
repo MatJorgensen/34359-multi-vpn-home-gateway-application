@@ -18,20 +18,53 @@
       <file leaf-file-name="AppComponent.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="446">
               <caret line="186" column="21" lean-forward="true" selection-start-line="186" selection-start-column="21" selection-end-line="186" selection-end-column="21" />
               <folding>
+                <element signature="imports" expanded="true" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="221">
+              <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#10596#0" expanded="true" />
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="99" column="82" lean-forward="false" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+=======
+      <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="95" column="32" lean-forward="true" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#4310#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppUiMessageHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
+      <file leaf-file-name="sampleCustom.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/resources/app/view/sampleCustom/sampleCustom.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="99" column="82" lean-forward="false" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+            <state relative-caret-position="259">
+              <caret line="622" column="17" lean-forward="true" selection-start-line="622" selection-start-column="17" selection-end-line="622" selection-end-column="17" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
               <folding />
             </state>
           </provider>
@@ -351,10 +384,21 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="33365000" />
+=======
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="27863000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-3" y="31" width="1926" height="900" extended-state="6" />
+=======
+    <option name="totallyTimeSpent" value="26248000" />
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="31" width="1926" height="904" extended-state="6" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -365,12 +409,29 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25239617" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+=======
+<<<<<<< HEAD
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32971996" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2531983" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32945737" sideWeight="0.4978678" order="1" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -477,7 +538,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="81" column="68" lean-forward="false" selection-start-line="81" selection-start-column="68" selection-end-line="81" selection-end-column="68" />
+<<<<<<< HEAD
           <folding />
+=======
+          <folding>
+<<<<<<< HEAD
+            <element signature="e#0#4310#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+=======
+            <element signature="e#0#10596#0" expanded="true" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
+          </folding>
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
         </state>
       </provider>
     </entry>
@@ -495,7 +567,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1513">
           <caret line="89" column="43" lean-forward="false" selection-start-line="88" selection-start-column="74" selection-end-line="89" selection-end-column="43" />
+<<<<<<< HEAD
           <folding />
+=======
+          <folding>
+<<<<<<< HEAD
+            <element signature="e#0#4310#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+=======
+            <element signature="e#0#10596#0" expanded="true" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
+          </folding>
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
         </state>
       </provider>
     </entry>
@@ -556,7 +639,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1224">
           <caret line="89" column="43" lean-forward="true" selection-start-line="88" selection-start-column="74" selection-end-line="89" selection-end-column="43" />
+<<<<<<< HEAD
           <folding />
+=======
+          <folding>
+<<<<<<< HEAD
+            <element signature="e#0#4310#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+=======
+            <element signature="e#0#10596#0" expanded="true" />
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
+          </folding>
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
         </state>
       </provider>
     </entry>
@@ -675,19 +769,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/meow/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="99" column="82" lean-forward="false" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
+=======
+    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppUiMessageHandler.java">
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="378">
+          <caret line="99" column="82" lean-forward="false" selection-start-line="99" selection-start-column="82" selection-end-line="99" selection-end-column="82" />
+          <folding />
+=======
+        <state relative-caret-position="221">
+          <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#10596#0" expanded="true" />
+          </folding>
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/meow/sample/meowster-sample/src/main/java/org/meowster/app/sample/AppComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="446">
           <caret line="186" column="21" lean-forward="true" selection-start-line="186" selection-start-column="21" selection-end-line="186" selection-end-column="21" />
+=======
+        <state relative-caret-position="476">
+          <caret line="95" column="32" lean-forward="true" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
+>>>>>>> c15c418514bacb262866b1974461d3dafb79ee4b
           <folding>
+<<<<<<< HEAD
+            <element signature="e#0#4310#0" expanded="true" />
+=======
+>>>>>>> 4e351efd22d483e8021174fd00aa99527ba49065
             <element signature="imports" expanded="true" />
           </folding>
         </state>
