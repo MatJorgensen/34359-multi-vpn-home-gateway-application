@@ -37,7 +37,7 @@ import java.util.List;
 public class AppUiComponent {
 
     private static final String VIEW_ID = "sampleCustom";
-    private static final String VIEW_TEXT = "Sample Custom";
+    private static final String VIEW_TEXT = "Multi-VPN Home Gateway Application";
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 

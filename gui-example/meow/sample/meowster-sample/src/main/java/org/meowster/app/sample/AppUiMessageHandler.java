@@ -10,7 +10,6 @@ package org.meowster.app.sample;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.collect.ImmutableSet;
-import org.onosproject.net.packet.PacketProcessor;
 import org.onosproject.ui.RequestHandler;
 import org.onosproject.ui.UiMessageHandler;
 import org.slf4j.Logger;
@@ -36,10 +35,7 @@ public class AppUiMessageHandler extends UiMessageHandler {
 
     private static final String SAMPLE_CUSTOM_DATA_REQ = "sampleCustomDataRequest";
     private static final String SAMPLE_CUSTOM_DATA_RESP = "sampleCustomDataResponse";
-    private static final String CUST_DATA_REQ = "macAndVlan";
-
-    private static final String macHost = "";
-    private static final String vlanTagId = "";
+    private static final String CUST_DATA_REQ = "toggleVlanRequest";
 
     private static final int NoVlan = 0;
     private static final String MESSAGE = "message";
@@ -50,8 +46,6 @@ public class AppUiMessageHandler extends UiMessageHandler {
     private static boolean VlanOn = false;
 
     public static boolean getVlan() { return VlanOn; }
-    //AppComponent AppC = new AppComponent();
-
 
     @Override
     protected Collection<RequestHandler> createRequestHandlers() {
@@ -60,38 +54,34 @@ public class AppUiMessageHandler extends UiMessageHandler {
         );
     }
 
-    // handler for sample data requests
     private final class SampleCustomDataRequestHandler extends RequestHandler {
 
         private SampleCustomDataRequestHandler() {
             super(CUST_DATA_REQ);
-            log.info("Hello");
-            log.info("MacHost: " + macHost.toString());
-            log.info("sample Custom data req: " + CUST_DATA_REQ);
+            log.info("Enabling custom data request: " + CUST_DATA_REQ);
         }
+
         @Override
         public void process(ObjectNode payload) {
-            log.info("payload: " + payload);
+            log.info("Payload: " + payload);
 
-            String tmpMac = payload.get("host").textValue();
-            MacAddress macHost2 = MacAddress.valueOf(tmpMac);
+            // Fetch MAC address from GUI
+            String inputMac = payload.get("host").textValue();
+            MacAddress hostMac = MacAddress.valueOf(inputMac);
 
-            Short tmpVlan = payload.get("vlanId").shortValue();
-            VlanId vlanTagId2 = VlanId.vlanId(tmpVlan);
+            // Fetch VLAN ID from GUI
+            String inputVlanId = payload.get("vlanId").textValue();
+            log.info("Parsed vlanId: " + inputVlanId);
+            VlanId vlanId = VlanId.vlanId(inputVlanId);
 
-            log.info("Host: " + macHost2 + "VlanId: " + vlanTagId2);
+            // Generate result message
             ObjectNode result = objectNode();
-            //log.info(payload.get("payload").toString());
-            result.put(MESSAGE, String.format(MSG_FORMAT, vlanTagId2, macHost2));
-            //check if tuple of MAC/VLAN exists if it does -> delete else -> create
-            log.info("result: " + result);
+            result.put(MESSAGE, String.format(MSG_FORMAT, vlanId, hostMac));
+            log.info("Result: " + result);
             sendMessage(result);
-            //log.info("inside app ui message handler: " + AppC.getVID());
-            AppComponent.VID = (short) 209;
-            //AppComponent.switchTable.get  set et eller andet
-            //AppComponent.toggleVlan(vlanTagId2, macHost2);
 
-
+            // Update value in backend
+            AppComponent.VID = vlanId;
         }
     }
 }

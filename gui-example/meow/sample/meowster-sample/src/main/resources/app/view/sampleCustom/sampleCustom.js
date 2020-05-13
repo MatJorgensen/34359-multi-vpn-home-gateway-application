@@ -9,7 +9,7 @@
     var dataReq = 'sampleCustomDataRequest',
         dataResp = 'sampleCustomDataResponse';
 
-    var dataReqCustom = 'macAndVlan';
+    var dataReqCustom = 'toggleVlanRequest';
 
     function addKeyBindings() {
         var map = {
@@ -24,29 +24,29 @@
     }
     function getData() {
         console.log("inside getData function");
-        var macHost = document.getElementById('macHost').value;
-        var vlanTagId = document.getElementById('vlanTagId').value;
-        console.log("macHost: " + macHost);
-        console.log("vlan ID: " + vlanTagId);
-        var hostData = {"host": macHost, "vlanId": vlanTagId};
-        var rowId = macHost + vlanTagId;
+        var hostMac = document.getElementById('hostMac').value;
+        var vlanId = document.getElementById('vlanId').value;
+        console.log("hostMac: " + hostMac);
+        console.log("vlanId: " + vlanId);
+        var hostData = {"host": hostMac, "vlanId": vlanId};
+        var rowId = hostMac + vlanId;
         if(document.getElementById(rowId) != null) {
             //element with id exists
             myDeleteFunction(rowId);
         } else {
-            myCreateFunction(macHost, vlanTagId)
+            myCreateFunction(hostMac, vlanId)
         }
         wss.sendEvent(dataReqCustom, hostData);
     }
 
-    function myCreateFunction(macHost, vlanTagId) {
+    function myCreateFunction(hostMac, vlanId) {
         var table = document.getElementById("myTable");
         var row = table.insertRow();
         var cell1 = row.insertCell(0);
         var cell2 = row.insertCell(1);
-        cell1.innerHTML = macHost;
-        cell2.innerHTML = vlanTagId;
-        row.id = (macHost+vlanTagId);
+        cell1.innerHTML = hostMac;
+        cell2.innerHTML = vlanId;
+        row.id = (hostMac + vlanId);
     }
 
     function myDeleteFunction(rowId) {

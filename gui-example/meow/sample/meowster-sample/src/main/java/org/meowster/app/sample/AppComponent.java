@@ -21,31 +21,16 @@ import org.onlab.packet.MacAddress;
 import org.onlab.packet.VlanId;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.core.CoreService;
-import org.onosproject.net.Device;
 import org.onosproject.net.DeviceId;
-import org.onosproject.net.Port;
 import org.onosproject.net.PortNumber;
 import org.onosproject.net.flow.*;
 import org.onosproject.net.Host;
-import org.onosproject.net.flowobjective.DefaultForwardingObjective;
-import org.onosproject.net.flowobjective.FlowObjectiveService;
-import org.onosproject.net.flowobjective.ForwardingObjective;
-import org.onosproject.net.packet.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.felix.scr.annotations.*;
-import org.onlab.packet.*;
-import org.onosproject.core.ApplicationId;
-import org.onosproject.core.CoreService;
-import org.onosproject.net.DeviceId;
-import org.onosproject.net.Host;
-import org.onosproject.net.PortNumber;
-import org.onosproject.net.flow.*;
-import org.onosproject.net.flowobjective.DefaultForwardingObjective;
-import org.onosproject.net.flowobjective.FlowObjectiveService;
-import org.onosproject.net.flowobjective.ForwardingObjective;
-import org.onosproject.net.packet.*;
 import org.onosproject.net.host.*;
+import org.onosproject.net.flowobjective.DefaultForwardingObjective;
+import org.onosproject.net.flowobjective.FlowObjectiveService;
+import org.onosproject.net.flowobjective.ForwardingObjective;
+import org.onosproject.net.packet.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,11 +47,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AppComponent {
 
     private ApplicationId appId;
-    public static Short VID = 200;
-
-    public void setVID(Short newVID) { VID = newVID; }
-    public Short getVID() { return VID; }
-
+    public static VlanId VID = VlanId.vlanId("200");
 
     public static ConcurrentHashMap<DeviceId, ConcurrentHashMap<MacAddress, Tuple<PortNumber, VlanId>>> switchTable = new ConcurrentHashMap<>();
     ConcurrentHashMap<DeviceId, String> switchType = new ConcurrentHashMap<>();
@@ -177,7 +158,7 @@ public class AppComponent {
                         switchType.put(deviceId, "EDGE");
                     }
                 }
-                tableData.setAt1(VlanId.vlanId(VID));
+                tableData.setAt1(VID);
                 hostTable.put(srcMac, tableData);
                 switchTable.replace(deviceId, hostTable);
             }
@@ -210,7 +191,7 @@ public class AppComponent {
                     if (host.mac().equals(dstMac)) {
                         popVlan(selector, treatment, srcMac, dstMac, outPort);
                     } else if (host.mac().equals(srcMac)) {
-                        pushVlan(selector, treatment, ethPkt, srcMac, dstMac, outPort, VlanId.vlanId(VID));
+                        pushVlan(selector, treatment, ethPkt, srcMac, dstMac, outPort, VID);
                     }
                 }
             } else {
@@ -234,7 +215,7 @@ public class AppComponent {
         public void popVlan(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, MacAddress srcMac, MacAddress dstMac, PortNumber outPort) {
             selector.matchEthSrc(srcMac);
             selector.matchEthDst(dstMac);
-            selector.matchVlanId(VlanId.vlanId(VID));
+            selector.matchVlanId(VID);
             treatment.popVlan();
             treatment.setOutput(outPort);
         }
@@ -242,7 +223,7 @@ public class AppComponent {
         public void fwdVlan(TrafficSelector.Builder selector, TrafficTreatment.Builder treatment, MacAddress srcMac, MacAddress dstMac, PortNumber outPort) {
             selector.matchEthSrc(srcMac);
             selector.matchEthDst(dstMac);
-            selector.matchVlanId(VlanId.vlanId(VID));
+            selector.matchVlanId(VID);
             treatment.setOutput(outPort);
         }
 

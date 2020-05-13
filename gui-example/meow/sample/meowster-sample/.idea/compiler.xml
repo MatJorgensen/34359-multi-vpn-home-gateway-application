@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="meowster-sample (1)" target="1.8" />
-      <module name="meowster-sample (2)" target="1.5" />
+      <module name="meowster-sample (1)" target="1.5" />
+      <module name="meowster-sample (2)" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5">
-    <output url="file://$MODULE_DIR$/target/classes" />
-    <output-test url="file://$MODULE_DIR$/target/test-classes" />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
+<module version="4">
+  <component name="FacetManager">
+    <facet type="Osmorc" name="OSGi">
+      <configuration manifestGenerationMode="OsmorcControlled" manifestLocation="" jarfileLocation="meowster-sample-1.0-SNAPSHOT.jar" outputPathType="CompilerOutputPath" bndFileLocation="" bundlorFileLocation="" bundleActivator="" bundleSymbolicName="org.meowster.app.sample.meowster-sample" bundleVersion="1.0.0.SNAPSHOT" ignoreFilePattern="" useProjectDefaultManifestFileLocation="true" alwaysRebuildBundleJAR="false" doNotSynchronizeWithMaven="false">
+        <additionalProperties>
+          <property key="Bundle-Description" value="Meowster sample app" />
+          <property key="Bundle-Name" value="meowster-sample" />
+          <property key="Include-Resource" value="app/view/sampleCustom/sampleCustom.css=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.css,app/view/sampleCustom/sampleCustom.html=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.html,app/view/sampleCustom/sampleCustom.js=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.js,sampleCustom/css.html=$MODULE_DIR$/src/main/resources/sampleCustom/css.html,sampleCustom/js.html=$MODULE_DIR$/src/main/resources/sampleCustom/js.html" />
+        </additionalProperties>
+        <additionalJARContents />
+      </configuration>
+    </facet>
   </component>
 </module>
