@@ -19,6 +19,5 @@ Source code for the final project (exam project) for course 34359 Software Defin
 7. Activate the multip-vpn-app application by executing `app activate multi-vpn-app`
 
 
-# HOW TO RUN CUSTOM MN TOPO FROM VLAN PUSH BRANCH
-
-sudo mn --custom example_topo.py --topo myTopo --controller=remote
+# How to run Mininet topologies
+To create the test topologies through Mininet execute the command `sudo mn --custom topos.py --topo <topo> --controller onos` where `<topo>` is either of values `topo1`, `topo2`, `topo3`, and `topo4`.
