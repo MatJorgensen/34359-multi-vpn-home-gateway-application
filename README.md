@@ -26,5 +26,5 @@ The applicaiton is comprised of multiple software components. To launch it pleas
 4. Remember to deactivate automatic forwarding of packets by executing `app deactivate fwd`.
 
 ## Authors
-* Frederik Rander Andersen
-* Mathias Boss Jørgensen
+* Frederik Rander Andersen - [frander1](https://github.com/frander1)
+* Mathias Boss Jørgensen - [MatJorgensen](https://github.com/MatJorgensen)
