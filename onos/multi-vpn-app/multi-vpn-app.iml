@@ -6,7 +6,7 @@
         <additionalProperties>
           <property key="Bundle-Description" value="ONOS OSGi bundle archetype" />
           <property key="Bundle-Name" value="multi-vpn-app" />
-          <property key="Include-Resource" value="sampleCustom.css=$MODULE_DIR$/src/main/resources/sampleCustom.css,sampleCustom/css.html=$MODULE_DIR$/src/main/resources/sampleCustom/css.html,sampleCustom/js.html=$MODULE_DIR$/src/main/resources/sampleCustom/js.html,sampleCustom.html=$MODULE_DIR$/src/main/resources/sampleCustom.html,sampleCustom.js=$MODULE_DIR$/src/main/resources/sampleCustom.js" />
+          <property key="Include-Resource" value="app/view/sampleCustom/sampleCustom.css=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.css,app/view/sampleCustom/sampleCustom.html=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.html,app/view/sampleCustom/sampleCustom.js=$MODULE_DIR$/src/main/resources/app/view/sampleCustom/sampleCustom.js,sampleCustom/css.html=$MODULE_DIR$/src/main/resources/sampleCustom/css.html,sampleCustom/js.html=$MODULE_DIR$/src/main/resources/sampleCustom/js.html" />
         </additionalProperties>
         <additionalJARContents />
       </configuration>
@@ -17,8 +17,8 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

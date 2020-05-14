@@ -1,3 +1,11 @@
+/*
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.student.multi_vpn_app;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -6,6 +14,8 @@ import org.onosproject.ui.RequestHandler;
 import org.onosproject.ui.UiMessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.onlab.packet.MacAddress;
+import org.onlab.packet.VlanId;
 
 import java.util.Collection;
 
@@ -20,14 +30,12 @@ import java.util.Collection;
  * Skeletal ONOS UI Custom-View message handler.
  */
 
+
 public class AppUiMessageHandler extends UiMessageHandler {
 
     private static final String SAMPLE_CUSTOM_DATA_REQ = "sampleCustomDataRequest";
     private static final String SAMPLE_CUSTOM_DATA_RESP = "sampleCustomDataResponse";
-    private static final String CUST_DATA_REQ = "macAndVlan";
-
-    private static final String macHost = "";
-    private static final String vlanTagId = "";
+    private static final String CUST_DATA_REQ = "toggleVlanRequest";
 
     private static final int NoVlan = 0;
     private static final String MESSAGE = "message";
@@ -46,28 +54,55 @@ public class AppUiMessageHandler extends UiMessageHandler {
         );
     }
 
-    // handler for sample data requests
     private final class SampleCustomDataRequestHandler extends RequestHandler {
 
         private SampleCustomDataRequestHandler() {
             super(CUST_DATA_REQ);
-            log.info("Hello");
-            log.info("MacHost: " + macHost.toString());
-            log.info("sample Custom data req: " + CUST_DATA_REQ);
+            log.info("Enabling custom data request: " + CUST_DATA_REQ);
         }
+
         @Override
         public void process(ObjectNode payload) {
-            log.info("payload: " + payload);
-            String macHost2 = payload.get("host").toString();
-            String vlanTagId2 = payload.get("vlanId").toString();
-            log.info("Host: " + macHost2 + "VlanId: " + vlanTagId2);
+            log.info("Payload: " + payload);
+
+            // Fetch MAC address from GUI
+            String inputMac = payload.get("host").textValue();
+            MacAddress hostMac = MacAddress.valueOf(inputMac);
+
+            // Fetch VLAN ID from GUI
+            String inputVlanId = payload.get("vlanId").textValue();
+            log.info("Parsed vlanId: " + inputVlanId);
+            VlanId vlanId = VlanId.vlanId(inputVlanId);
+
+            // Generate result message
             ObjectNode result = objectNode();
-            //log.info(payload.get("payload").toString());
-            result.put(MESSAGE, String.format(MSG_FORMAT, payload.get("vlanId").toString(), payload.get("host").toString()));
-            //check if tuple of MAC/VLAN exists if it does -> delete else -> create
-            log.info("result: " + result);
+            result.put(MESSAGE, String.format(MSG_FORMAT, vlanId, hostMac));
+            log.info("Result: " + result);
             sendMessage(result);
 
+            // Update value in backend
+            AppComponent.VID = vlanId;
+            AppComponent.switchTable.forEach((k,v) -> {
+                v.forEach((k1,v1) -> {
+                    log.info("Switch: " + k.toString() + " Host: " + k1.toString() + " Outport: " + v1.getValue0().toString() + " VLAN ID: " + v1.getValue1().toString());
+                    if (k1.toString().equals(hostMac.toString())){
+                        // Remove existing VLAN IDs
+                        if (v1.getValue1().contains(vlanId) && v1.getValue1().size() == 1) {
+                            v1.getValue1().remove(vlanId);
+                            v1.getValue1().add(VlanId.vlanId(VlanId.UNTAGGED));
+                        } else if (v1.getValue1().contains(vlanId) && v1.getValue1().size() > 1) {
+                            v1.getValue1().remove(vlanId);
+                        // Add new VLAN IDs
+                        } else if (!v1.getValue1().contains(vlanId) && v1.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))){
+                            v1.getValue1().remove(VlanId.vlanId(VlanId.UNTAGGED));
+                            v1.getValue1().add(vlanId);
+                        } else {
+                            v1.getValue1().add(vlanId);
+                        }
+                    }
+                    log.info("MODIFIED: Switch: " + k.toString() + " Host: " + k1.toString() + " Outport: " + v1.getValue0().toString() + " VLAN ID: " + v1.getValue1().toString());
+                });
+            });
         }
     }
 }

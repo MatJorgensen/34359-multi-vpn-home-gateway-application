@@ -1,4 +1,4 @@
-package org.meowster.app.sample;
+package org.student.multi_vpn_app;
 
 public class Tuple<A, B>  {
     private A val0;
