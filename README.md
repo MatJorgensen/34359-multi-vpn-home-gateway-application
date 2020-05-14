@@ -17,3 +17,7 @@ Source code for the final project (exam project) for course 34359 Software Defin
 5. Install the application by executing`onos-app localhost install target/multi-vpn-app-1.0-SNAPSHOT.oar`
 6. Deactivate automatic forwarding of packets by executing `app deactivate fwd`
 7. Activate the multip-vpn-app application by executing `app activate multi-vpn-app`
+
+
+# How to run Mininet topologies
+To create the test topologies through Mininet execute the command `sudo mn --custom topos.py --topo <topo> --controller onos` where `<topo>` is either of values `topo1`, `topo2`, `topo3`, and `topo4`.
