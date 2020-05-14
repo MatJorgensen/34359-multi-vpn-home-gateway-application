@@ -4,7 +4,7 @@ Source code for the final project (exam project) for course 34359 Software Defin
 ## Requirements
 
 ## Launch Applicaiton
-The applicaiton comprises multiple software components. To launch it please follow the below steps to start the ONOS controller, generate a network topology, and activate the Multi-VPN Home Gateway Applicaiton. 
+The applicaiton is comprised of multiple software components. To launch it please follow the below steps to start the ONOS controller, generate a network topology, and activate the Multi-VPN Home Gateway Applicaiton. 
 ### Start ONOS
 1. Start ONOS by executing command  `onos-buck run onos-localhost -- clean debug`.
 2. Start ONOS CLI by executing command `onos localhost` (remember to navigate to directory `onos`).
