@@ -1,5 +1,7 @@
 # Multi-VPN Home Gateway Application
-Source code for the final project (exam project) for course 34359 Software Defined Networking (SDN) at the Technical University of Denmark. 
+Source code for the final project (exam project) for course 34359 Software Defined Networking (SDN) at the Technical University of Denmark.
+
+The Multi-VPN Home Gateway Application is an application which enables users to dynamically connect and disconnect hosts to VLANs, thus creating a VPN, for any given network topology. Network traffic is segmented based on the VLANs, for example, a host connected only to VLAN 200 cannot reach a host connected only to VLAN 300. All hosts are by default untagged. 
 
 ## Requirements
 
