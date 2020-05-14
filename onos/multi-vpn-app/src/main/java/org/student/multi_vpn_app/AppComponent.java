@@ -117,14 +117,13 @@ public class AppComponent {
 
             // Now lets check if the source host is a known host. If it is not add it to the switchTable.
             ConcurrentHashMap<MacAddress, Tuple<PortNumber, Set<VlanId>>> hostTable = switchTable.get(deviceId);
-            // ArrayList<VlanId> vlanIds = new ArrayList<VlanId>();
             Tuple<PortNumber, Set<VlanId>> tableData = new Tuple<>(PortNumber.FLOOD, new HashSet<VlanId>());
             MacAddress srcMac = ethPkt.getSourceMAC();
             if (!hostTable.containsKey(srcMac)){
                 log.info("Adding new host: " + srcMac.toString() + " for switch " + deviceId.toString() + " on port " + pkt.receivedFrom().port());
                 tableData.setAt0(pkt.receivedFrom().port());
 
-                // Define switch type
+                // Define switch type.
                 for (Host host : connectedHosts) {
                     if (srcMac.equals(host.mac()) || ethPkt.getDestinationMAC().equals(host.mac())) {
                         log.info("Setting switch type to 'EDGE'");
@@ -132,7 +131,6 @@ public class AppComponent {
                     }
                 }
                 tableData.getValue1().add(VID);
-                // log.info("VID: " + tableData.getValue1().toString() + ", Value: " + VID.toString());
                 hostTable.put(srcMac, tableData);
                 switchTable.replace(deviceId, hostTable);
             }
@@ -147,47 +145,6 @@ public class AppComponent {
             // By default set the port to FLOOD.
             MacAddress dstMac = ethPkt.getDestinationMAC();
             PortNumber outPort = PortNumber.FLOOD;
-<<<<<<< HEAD
-            VlanId vlanId = VlanId.vlanId(VlanId.UNTAGGED);
-
-            TrafficSelector.Builder packetSelector1 = DefaultTrafficSelector.builder();
-            packetSelector1.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector2 = DefaultTrafficSelector.builder();
-            packetSelector2.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector3 = DefaultTrafficSelector.builder();
-            packetSelector3.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficSelector.Builder packetSelector4 = DefaultTrafficSelector.builder();
-            packetSelector4.matchEthType(Ethernet.TYPE_IPV4);
-
-            TrafficTreatment.Builder packetTreatment1 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment2 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment3 = DefaultTrafficTreatment.builder();
-            TrafficTreatment.Builder packetTreatment4 = DefaultTrafficTreatment.builder();
-
-            if (deviceId.equals(DeviceId.deviceId("of:0000000000000001"))) {
-                log.info("s1");
-                if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
-                    outPort = PortNumber.portNumber(1);
-                    //vlanId = VlanId.vlanId(vlanId.UNTAGGED);
-                    log.info("Setting output port to: " + outPort);
-                    //log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector3.matchVlanId(VlanId.vlanId((short) 200));
-                    packetSelector3.matchEthDst(dstMac);
-                    packetTreatment3.popVlan();
-                    packetTreatment3.setOutput(outPort);
-                    forwardRequest(context, packetSelector3, packetTreatment3, deviceId, outPort);
-                } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
-                    outPort = PortNumber.portNumber(2);
-                    vlanId = VlanId.vlanId((short) 200);
-                    log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector1.matchEthDst(dstMac);
-                    packetTreatment1.pushVlan().setVlanId(vlanId).setOutput(outPort);
-                    forwardRequest(context, packetSelector1, packetTreatment1, deviceId, outPort);
-=======
             if (hostTable.containsKey(dstMac)){
                 tableData = hostTable.get(dstMac);
                 outPort = tableData.getValue0();
@@ -198,11 +155,10 @@ public class AppComponent {
             TrafficSelector.Builder selector = DefaultTrafficSelector.builder();
             selector.matchEthType(Ethernet.TYPE_IPV4);
 
-            // Get VLANs of source and destination hosts
+            // Get VLANs of source and destination hosts.
             Set<VlanId> srcVlans = hostTable.get(srcMac).getValue1();
             Set<VlanId> commonVlans = new HashSet<>(srcVlans);
 
-            // log.info("commonVlans: " + commonVlans.isEmpty());
             if (!tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED)) && !tableData.getValue1().isEmpty()) {
                 log.info(srcMac.toString() + " has VLANs " + srcVlans.toString());
                 Set<VlanId> dstVlans = hostTable.get(dstMac).getValue1();
@@ -210,31 +166,14 @@ public class AppComponent {
                 commonVlans.retainAll(dstVlans);
             }
 
-            /*
-            log.info("CONNECTED HOSTS: " + connectedHosts.toString());
-            log.info("1st iterator");
-            hostService.getHostsByMac(srcMac).iterator().next();
-            log.info("CONNECTED HOSTS: " + connectedHosts.toString());
-            log.info("2nd iterator");
-            hostService.getHostsByMac(srcMac).iterator().next();
-            log.info("CONNECTED HOSTS: " + connectedHosts.toString());
-            */
-            /*
-            log.info("SRC:");
-            log.info("Host " + hostService.getHostsByMac(srcMac) + ": " + connectedHosts.contains(hostService.getHostsByMac(srcMac).iterator().next()));
-            log.info("DST:");
-            log.info("Host " + hostService.getHostsByMac(dstMac) + ": " + connectedHosts.contains(hostService.getHostsByMac(dstMac).iterator().next()));
-            log.info("FWD:");
-            */
-
             // ... and generate treatment for the selected traffic.
             TrafficTreatment.Builder treatment = DefaultTrafficTreatment.builder();
 
-
-            // Logic of edge switches
+            // Logic of edge switches.
             if (switchType.containsKey(deviceId) && switchType.get(deviceId).equals("EDGE")) {
                 log.info("EDGE");
-                // For ingress packets push VLAN tags
+                
+                // For ingress packets push VLAN tags.
                 if (hostService.getHostsByMac(srcMac).iterator().hasNext() && connectedHosts.contains(hostService.getHostsByMac(srcMac).iterator().next()) && !tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
                     // Drop packet if source and host is not in same VLAN
                     if (commonVlans.isEmpty()) {
@@ -243,75 +182,19 @@ public class AppComponent {
                     }
                     log.info("PUSH");
                     pushVlan(selector, treatment, ethPkt, srcMac, dstMac, outPort, commonVlans.iterator().next());
-                // For egress packets pop VLAN tags
+                    
+                // For egress packets pop VLAN tags.
                 } else if (hostService.getHostsByMac(dstMac).iterator().hasNext() && connectedHosts.contains(hostService.getHostsByMac(dstMac).iterator().next()) && !tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
                     log.info("POP");
                     popVlan(selector, treatment, srcMac, dstMac, outPort, commonVlans.iterator().next());
-                // If neither simply forward the packet (used for generation of switch tables)
->>>>>>> merging
+                    
+                // If neither simply forward the packet (used for generation of switch tables).
                 } else {
                     log.info("FWD");
                     fwd(selector, treatment, srcMac, dstMac, outPort);
                 }
-<<<<<<< HEAD
-            } else if (deviceId.equals(DeviceId.deviceId("of:0000000000000002"))) {
-                log.info("s2");
-                if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:01"))) {
-                    outPort = PortNumber.portNumber(2);
-                    vlanId = VlanId.vlanId((short) 200);
-                    log.info("Setting output port to: " + outPort);
-                    log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector4.matchEthDst(dstMac);
-                    packetTreatment4.pushVlan().setVlanId(vlanId).setOutput(outPort);
-                    forwardRequest(context, packetSelector4, packetTreatment4, deviceId, outPort);
-                } else if (dstMac.equals(MacAddress.valueOf("00:00:00:00:00:02"))) {
-                    outPort = PortNumber.portNumber(1);
-                    // vlanId = VlanId.vlanId(VlanId.UNTAGGED);
-                    log.info("Setting output port to: " + outPort);
-                    // log.info("Tagging packet with vlan tag " + vlanId);
-                    packetSelector2.matchVlanId(VlanId.vlanId((short) 200));
-                    packetSelector2.matchEthDst(dstMac);
-                    packetTreatment2.popVlan();
-                    packetTreatment2.setOutput(outPort);
-                    forwardRequest(context, packetSelector2, packetTreatment2, deviceId, outPort);
-=======
-            // Logic of core switches
-            } else {
-                log.info("CORE");
-                if (!tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
-                    log.info("FWDVLAN");
-                    fwdVlan(selector, treatment, srcMac, dstMac, outPort, commonVlans.iterator().next());
->>>>>>> merging
-                } else {
-                    log.info("FWD");
-                    fwd(selector, treatment, srcMac, dstMac, outPort);
-                }
-            }
 
-
-            /*
-            if (switchType.containsKey(deviceId) && switchType.get(deviceId).equals("EDGE")) {
-                log.info("EDGE");
-                for (Host host : connectedHosts) {
-                    log.info("HOST: " + host.mac().toString());
-                    if (host.mac().equals(dstMac) && !tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
-                        log.info("POP");
-                        popVlan(selector, treatment, srcMac, dstMac, outPort, commonVlans.iterator().next());
-                        break;
-                    } else if (host.mac().equals(srcMac) && !tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
-                        log.info("PUSH");
-                        if (commonVlans.isEmpty()) {
-                            log.info("Packet dropped. Host " + srcMac.toString() + " not in same VLAN as " + dstMac.toString());
-                            return;
-                        }
-                        pushVlan(selector, treatment, ethPkt, srcMac, dstMac, outPort, commonVlans.iterator().next());
-                        break;
-                    } else {
-                        log.info("FWD");
-                        fwd(selector, treatment, srcMac, dstMac, outPort);
-                        break;
-                    }
-                }
+                // Logic of core switches.
             } else {
                 log.info("CORE");
                 if (!tableData.getValue1().contains(VlanId.vlanId(VlanId.UNTAGGED))) {
@@ -322,7 +205,6 @@ public class AppComponent {
                     fwd(selector, treatment, srcMac, dstMac, outPort);
                 }
             }
-            */
 
             // Lastly, forward the request.
             forwardRequest(context, selector, treatment, deviceId, outPort);
