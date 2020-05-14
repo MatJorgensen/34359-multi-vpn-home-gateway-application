@@ -117,7 +117,6 @@ public class AppComponent {
 
             // Now lets check if the source host is a known host. If it is not add it to the switchTable.
             ConcurrentHashMap<MacAddress, Tuple<PortNumber, Set<VlanId>>> hostTable = switchTable.get(deviceId);
-            // ArrayList<VlanId> vlanIds = new ArrayList<VlanId>();
             Tuple<PortNumber, Set<VlanId>> tableData = new Tuple<>(PortNumber.FLOOD, new HashSet<VlanId>());
             MacAddress srcMac = ethPkt.getSourceMAC();
             if (!hostTable.containsKey(srcMac)){
@@ -190,7 +189,7 @@ public class AppComponent {
                     log.info("POP");
                     popVlan(selector, treatment, srcMac, dstMac, outPort, commonVlans.iterator().next());
 
-                // If neither simply forward the packet (used for generation of switch tables.
+                // If neither simply forward the packet (used for generation of switch tables).
                 } else {
                     log.info("FWD");
                     fwd(selector, treatment, srcMac, dstMac, outPort);
