@@ -1,3 +1,5 @@
+<img src="https://github.com/favicon.ico" width="48">
+
 ![DTU Logo](https://images.squarespace-cdn.com/content/5b052242506fbe7ea6c0969c/1539868936426-869NHDYJ3T0P9JJE2G5J/DTU_Logo_Corporate_Red_RGB.png?format=1500w&content-type=image%2Fpng=50x50)
 
 # Multi-VPN Home Gateway Application
